@@ -31,10 +31,10 @@ def get_network_speed():
 def check_speed(download_speed, upload_speed):
     global download_min_value, upload_min_value
     if download_speed < download_min_value:
-        msg = "Download speed {:.2f} is lower than {:.2f}!!!".format(download_speed, download_min_value)
+        msg = "Download speed {:.2f} is lower than {:.2f}".format(download_speed, download_min_value)
         messagebox.showinfo(title="Error", message=msg)
     if upload_speed < upload_min_value:
-        msg = "Upload speed {:.2f} is lower than {:.2f}!!!".format(upload_speed, upload_min_value)
+        msg = "Upload speed {:.2f} is lower than {:.2f}".format(upload_speed, upload_min_value)
         messagebox.showinfo(title="Error", message=msg)
 
 
@@ -147,7 +147,7 @@ test_btn.place(x=150, y=160)
 
 
 # setting button
-config_btn = Button(window, width=20, height=20, image=ONE_PIXEL, command=set_config)
+config_btn = Button(window, width=35, height=35, image=ONE_PIXEL, command=set_config)
 config_btn['text'] = '⚙'
 config_btn['font'] = tkf.Font(family='Ubuntu Mono', size=20, weight='bold')
 config_btn['foreground'] = '#b7c2cc'
