@@ -1,5 +1,6 @@
 import config_window
 
+import datetime
 import speedtest
 from threading import Timer
 
@@ -45,9 +46,16 @@ def testing():
         test_btn['state'] = 'disabled'
         download_speed, upload_speed = get_network_speed()
         if running_timer.is_alive():
+            d_str = "{speed:.2f}".format(speed = download_speed)
+            u_str = "{speed:.2f}".format(speed = upload_speed)
+
+            # print record
+            print(datetime.datetime.now(), end=' ')
+            print("Download(Mbps):{} Upload(Mbps):{}".format(d_str, u_str))
+
             # update screen
-            download_num['text'] = "{speed:.2f}".format(speed = download_speed)
-            upload_num['text'] = "{speed:.2f}".format(speed = upload_speed)
+            download_num['text'] = d_str
+            upload_num['text'] = u_str
             # check speed
             check_speed(download_speed, upload_speed)
             test_btn['text'] = 'Test'
@@ -84,6 +92,9 @@ def set_config(init = False):
     # update the global variable
     with open('config.txt', 'r') as f:
         period, upload_min_value, download_min_value = [float(val) for val in f.readline().split()]
+        p_status['text'] = "Period   : " + str(period)
+        d_status['text'] = "Download : " + str(download_min_value)
+        u_status['text'] = "Upload   : " + str(upload_min_value)
 
     # restart when configuration is modified
     if init == False:
@@ -152,7 +163,41 @@ config_btn['text'] = '⚙'
 config_btn['font'] = tkf.Font(family='Ubuntu Mono', size=20, weight='bold')
 config_btn['foreground'] = '#b7c2cc'
 config_btn.configure(bd=0, highlightthickness=0, compound=CENTER, background='#141526', activebackground='#141526')
-config_btn.place(x=390, y=220)
+config_btn.place(x=380, y=210)
+
+
+# Status
+p_status = Label(window, width=130, height=20, image=ONE_PIXEL)
+p_status['text'] = 'Period   : loading'
+p_status['font'] = tkf.Font(family='Ubuntu Mono', size=10, weight='bold')
+p_status['compound'] = CENTER
+p_status['background'] = '#141526'
+p_status['foreground'] = '#b7c2cc'
+p_status.place(x=5, y=160)
+
+d_status = Label(window, width=130, height=20, image=ONE_PIXEL)
+d_status['text'] = 'Download : loading'
+d_status['font'] = tkf.Font(family='Ubuntu Mono', size=10, weight='bold')
+d_status['compound'] = CENTER
+d_status['background'] = '#141526'
+d_status['foreground'] = '#b7c2cc'
+d_status.place(x=5, y=180)
+
+u_status = Label(window, width=130, height=20, image=ONE_PIXEL)
+u_status['text'] = 'Upload   : loading'
+u_status['font'] = tkf.Font(family='Ubuntu Mono', size=10, weight='bold')
+u_status['compound'] = CENTER
+u_status['background'] = '#141526'
+u_status['foreground'] = '#b7c2cc'
+u_status.place(x=5, y=200)
+
+ # signature
+signature_label = Label(window, image=ONE_PIXEL)
+signature_label['text'] = 'Created by Dannyyang0329'
+signature_label['font'] = tkf.Font(family='Ubuntu Mono', size=10, slant='italic')
+signature_label['foreground'] = '#d9d9d9'
+signature_label.configure(compound=CENTER, background='#141526')
+signature_label.place(x=10, y=230)
 
 
 set_config(init=True)

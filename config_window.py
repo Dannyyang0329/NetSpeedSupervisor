@@ -18,7 +18,6 @@ def save_config(p_text, u_text, d_text):
         with open('config.txt', 'w') as f:
             str = pt + " " + ut + " " + dt
             f.write(str)
-            print("WRITE")
     except:
         messagebox.showinfo("Error", "Value is invalid")
 
